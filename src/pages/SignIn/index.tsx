@@ -1,6 +1,6 @@
 import React from 'react';
 import { FiDollarSign, FiLogIn, FiLock, FiMail } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+
 import { ReactComponent as SignInBackGround } from '../../assets/signin.svg';
 
 import Input from '../../components/Input';
@@ -24,12 +24,12 @@ const SignIn: React.FC = () => (
           icon={FiLock}
         />
         <Button type="submit">Entrar</Button>
-        <Link to="/">Esqueci minha senha</Link>
+        <a>Esqueci minha senha</a>
       </form>
-      <Link to="/">
+      <a>
         <FiLogIn />
         Criar conta
-      </Link>
+      </a>
     </Content>
     <Background>
       <SignInBackGround />
