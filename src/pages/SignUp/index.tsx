@@ -10,7 +10,6 @@ import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
-
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
