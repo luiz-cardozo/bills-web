@@ -6,10 +6,11 @@ import {
   FiArrowLeft,
   FiUser,
 } from 'react-icons/fi';
-import { FormHandles } from '@unform/core'
+import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
+import { useHistory, Link } from 'react-router-dom';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -19,26 +20,31 @@ import { ReactComponent as SignInBackGround } from '../../assets/signin.svg';
 import { Container, Content, Background, Lock } from './styles';
 
 const SignUp: React.FC = () => {
-  const formRef = useRef<FormHandles>(null)
-  const handleSubmit = useCallback(async (data: object) => {
-    try {
-      formRef.current?.setErrors({});
-      const schema = Yup.object().shape({
-        name: Yup.string().required('Campo obrigatório'),
-        email: Yup.string().required('Campo obrigatório').email('Insira um endereço de e-mail válido'),
-        password: Yup.string().min(6, 'Mínimo de 6 dígitos')
-      })
-      await schema.validate(data, {
-        abortEarly: false,
-      });
+  const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
 
-    } catch (err) {
-      
+  const handleSubmit = useCallback(
+    async (data: object) => {
+      try {
+        formRef.current?.setErrors({});
+        const schema = Yup.object().shape({
+          name: Yup.string().required('Campo obrigatório'),
+          email: Yup.string()
+            .required('Campo obrigatório')
+            .email('Insira um endereço de e-mail válido'),
+          password: Yup.string().min(6, 'Mínimo de 6 dígitos'),
+        });
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+        history.push('/');
+      } catch (err) {
         const errors = getValidationErrors(err);
         formRef.current?.setErrors(errors);
-      
-    }
-  },[])
+      }
+    },
+    [history],
+  );
 
   return (
     <Container>
@@ -58,10 +64,10 @@ const SignUp: React.FC = () => {
           />
           <Button type="submit">Cadastrar</Button>
         </Form>
-        <a>
+        <Link to="/">
           <FiArrowLeft />
-          Voltar para login
-        </a>
+          Voltar para logon
+        </Link>
       </Content>
       <Background>
         <SignInBackGround />

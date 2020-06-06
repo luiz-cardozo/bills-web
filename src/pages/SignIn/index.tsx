@@ -1,19 +1,20 @@
-import React, { useRef, useCallback, useContext } from 'react';
+import React, { useRef, useCallback } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import { FiDollarSign, FiLogIn, FiLock, FiMail } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
-import getValidationErrors from '../../utils/getValidationErrors';
-import { AuthContext } from '../../hooks/auth';
+import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
 
+import getValidationErrors from '../../utils/getValidationErrors';
 import { ReactComponent as SignInBackGround } from '../../assets/signin.svg';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 import { Container, Content, Background, Lock } from './styles';
-import { useToast } from '../../hooks/toast';
 
 interface ISignInFormData {
   email: string;
@@ -22,7 +23,8 @@ interface ISignInFormData {
 
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
-  const { user, signIn } = useContext(AuthContext);
+  const { signIn } = useAuth();
+  const history = useHistory();
   const { addToast } = useToast();
 
   const handleSubmit = useCallback(
@@ -30,10 +32,8 @@ const SignIn: React.FC = () => {
       try {
         formRef.current?.setErrors({});
         const schema = Yup.object().shape({
-          email: Yup.string()
-            .required('Campo obrigatório')
-            .email('Insira um endereço de e-mail válido'),
-          password: Yup.string().required('Campo obrigatório'),
+          email: Yup.string().required('Digite um e-mail válido'),
+          password: Yup.string().required('Digite sua senha'),
         });
         await schema.validate(data, {
           abortEarly: false,
@@ -42,20 +42,21 @@ const SignIn: React.FC = () => {
           email: data.email,
           password: data.password,
         });
+        history.push('/');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
         }
-      }
 
-      addToast({
-        type: 'error',
-        title: 'Erro na autenticação',
-        description: 'Ocorreu um erro ao fazer login, cheque as credenciais',
-      });
+        addToast({
+          type: 'error',
+          title: 'Erro na autenticação',
+          description: 'Ocorreu um erro no login, cheque as credencias',
+        });
+      }
     },
-    [addToast, signIn],
+    [signIn, addToast, history],
   );
 
   return (
@@ -74,12 +75,12 @@ const SignIn: React.FC = () => {
             icon={FiLock}
           />
           <Button type="submit">Entrar</Button>
-          <a>Esqueci minha senha</a>
+          <Link to="/">Esqueci minha senha</Link>
         </Form>
-        <a>
+        <Link to="/signup">
           <FiLogIn />
           Criar conta
-        </a>
+        </Link>
       </Content>
       <Background>
         <SignInBackGround />
