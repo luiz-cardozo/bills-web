@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { FiGrid, FiShoppingCart } from 'react-icons/fi';
+import { FiShoppingCart, FiTag, FiTarget } from 'react-icons/fi';
 
 import api from '../../services/api';
 
@@ -133,7 +133,7 @@ const Dashboard: React.FC = () => {
           <Card>
             <header>
               <p>Categorias em destaque</p>
-              <FiGrid size={24} />
+              <FiTag size={24} />
             </header>
             <ul>
               {topCategories &&
@@ -162,7 +162,7 @@ const Dashboard: React.FC = () => {
           <Card>
             <header>
               <p>Pagamentos compartilhados</p>
-              <Outcome />
+              <FiTarget size={20} />
             </header>
             <ul>
               {apportionment &&
