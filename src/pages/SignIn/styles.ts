@@ -34,6 +34,7 @@ export const Content = styled.div`
   justify-content: center;
   width: 100%;
   max-width: 720px;
+  background: #fff;
 
   @media (max-width: 800px) {
     max-width: 100%;

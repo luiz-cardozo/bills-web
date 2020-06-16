@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
 
-interface ContainerProps {
+interface IContainerProps {
   isFocused: boolean;
   isFilled: boolean;
   isErrored: boolean;
 }
 
-export const Container = styled.div<ContainerProps>`
+export const Container = styled.div<IContainerProps>`
   border-radius: 10px;
   border: 1px solid #3f3d56;
   padding: 16px;
@@ -18,24 +18,31 @@ export const Container = styled.div<ContainerProps>`
     margin-top: 8px;
   }
 
-  ${props => props.isErrored && css`
-    border-color: #c53030;
-    color: #c53030;
-  `}
+  ${props =>
+    props.isErrored &&
+    css`
+      border-color: #c53030;
+      color: #c53030;
+    `}
 
-  ${props => props.isFocused && css`
-    color: #4211d0;
-    border-color: #4211d0;
-  `}
+  ${props =>
+    props.isFocused &&
+    css`
+      color: #4211d0;
+      border-color: #4211d0;
+    `}
 
-  ${props => (props.isFilled) && css`
-    border-color: #3f3d56;
-    color: #1ed69e;
-  `}
+  ${props =>
+    props.isFilled &&
+    css`
+      border-color: #3f3d56;
+      color: #1ed69e;
+    `}
 
   input {
     flex: 1;
     border: 0;
+    background: transparent
   }
 
   svg {
