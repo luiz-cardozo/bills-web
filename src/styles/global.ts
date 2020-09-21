@@ -10,10 +10,11 @@ export default createGlobalStyle`
 
   body {
     background: #ebe7f8;
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
 
-  body, input, button {
+  body, input, select, button {
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
   }
@@ -22,11 +23,19 @@ export default createGlobalStyle`
     font-weight: 500;
   }
 
+  h2 { 
+    margin: 16px 0;
+  }
+
   ul {
     list-style-type: none;
   }
 
   button {
     cursor: pointer;
+  }
+
+  *:before {
+     box-sizing: border-box;
   }
 `;

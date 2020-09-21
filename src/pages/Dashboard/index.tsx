@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { FiShoppingCart, FiTag, FiTarget } from 'react-icons/fi';
+import { FiShoppingCart, FiTag, FiUsers } from 'react-icons/fi';
+
+import Card from '../../components/Card';
 
 import api from '../../services/api';
-
 import formatValue from '../../utils/formatValue';
 
-import Header from '../../components/Header';
 import { ReactComponent as Income } from '../../assets/income.svg';
 import { ReactComponent as Outcome } from '../../assets/outcome.svg';
 import { ReactComponent as Total } from '../../assets/total.svg';
@@ -13,7 +13,6 @@ import { ReactComponent as Total } from '../../assets/total.svg';
 import {
   Container,
   CardContainer,
-  Card,
   ResumeContainer,
   Transaction,
 } from './styles';
@@ -103,80 +102,53 @@ const Dashboard: React.FC = () => {
   }, [balance.total]);
 
   return (
-    <>
-      <Header />
-      <Container>
-        <CardContainer>
-          <Card>
-            <header>
-              <p>Entradas</p>
-              <Income />
-            </header>
-            <h1>{incomeAsCurrency}</h1>
-          </Card>
-          <Card>
-            <header>
-              <p>Saídas</p>
-              <Outcome />
-            </header>
-            <h1>{outcomeAsCurrency}</h1>
-          </Card>
-          <Card>
-            <header>
-              <p>Total</p>
-              <Total />
-            </header>
-            <h1>{totalAsCurrency}</h1>
-          </Card>
-        </CardContainer>
-        <ResumeContainer>
-          <Card>
-            <header>
-              <p>Categorias em destaque</p>
-              <FiTag size={24} />
-            </header>
-            <ul>
-              {topCategories &&
-                topCategories.map(category => (
-                  <li key={category.category_id}>
-                    {category.name} <span>{category.formattedValue}</span>
-                  </li>
-                ))}
-            </ul>
-          </Card>
-          <Card>
-            <header>
-              <p>Maiores transações</p>
-              <FiShoppingCart size={20} />
-            </header>
-            <ul>
-              {topTransactions &&
-                topTransactions.map(transaction => (
-                  <Transaction key={transaction.id} type={transaction.type}>
-                    {transaction.title}
-                    <span>{transaction.formattedValue}</span>
-                  </Transaction>
-                ))}
-            </ul>
-          </Card>
-          <Card>
-            <header>
-              <p>Pagamentos compartilhados</p>
-              <FiTarget size={20} />
-            </header>
-            <ul>
-              {apportionment &&
-                apportionment.map(share => (
-                  <Transaction key={share.id}>
-                    {share.formattedName}
-                    <span>{share.formattedValue}</span>
-                  </Transaction>
-                ))}
-            </ul>
-          </Card>
-        </ResumeContainer>
-      </Container>
-    </>
+    <Container>
+      <CardContainer>
+        <Card title="Entradas" icon={Income}>
+          <p>{incomeAsCurrency}</p>
+        </Card>
+        <Card title="Saída" icon={Outcome}>
+          <p>{outcomeAsCurrency}</p>
+        </Card>
+        <Card title="Total" icon={Total}>
+          <p>{totalAsCurrency}</p>
+        </Card>
+      </CardContainer>
+      <ResumeContainer>
+        <Card title="Categorias em destaque" icon={FiTag}>
+          <ul>
+            {topCategories &&
+              topCategories.map(category => (
+                <li key={category.category_id}>
+                  {category.name} <span>{category.formattedValue}</span>
+                </li>
+              ))}
+          </ul>
+        </Card>
+        <Card title="Maiores transações" icon={FiShoppingCart}>
+          <ul>
+            {topTransactions &&
+              topTransactions.map(transaction => (
+                <Transaction key={transaction.id} type={transaction.type}>
+                  {transaction.title}
+                  <span>{transaction.formattedValue}</span>
+                </Transaction>
+              ))}
+          </ul>
+        </Card>
+        <Card title="Pagamentos compartilhados" icon={FiUsers}>
+          <ul>
+            {apportionment &&
+              apportionment.map(share => (
+                <Transaction key={share.id}>
+                  {share.formattedName}
+                  <span>{share.formattedValue}</span>
+                </Transaction>
+              ))}
+          </ul>
+        </Card>
+      </ResumeContainer>
+    </Container>
   );
 };
 

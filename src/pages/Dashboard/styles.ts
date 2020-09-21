@@ -5,25 +5,39 @@ interface ITransaction {
 }
 
 export const Container = styled.div`
-  width: 100%;
-  flex: 1;
   margin: 0 auto;
   padding: 40px 20px;
+  position: relative;
 `;
 
 export const CardContainer = styled.section`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   grid-gap: 32px;
-  margin: -100px auto;
+  /* margin: 42px auto 0 auto; */
   max-width: 1120px;
+
+  header + p {
+    font-weight: 500;
+    font-size: 22px;
+    padding-top: 8px;
+  }
+
+  @media (min-width: 550px) and (max-width: 900px) {
+    div:last-child {
+      grid-column: 1 / span 2;
+    }
+  }
+
+  @media (min-width: 900px) {
+    margin: -120px auto 0 auto;
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
 
 export const ResumeContainer = styled.section`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   grid-gap: 32px;
-  margin: 180px auto 0 auto;
+  margin: 32px auto 0 auto;
   max-width: 1120px;
 
   header {
@@ -42,18 +56,9 @@ export const ResumeContainer = styled.section`
     display: flex;
     justify-content: space-between;
   }
-`;
 
-export const Card = styled.div`
-  background: #fff;
-  padding: 40px 32px;
-  border-radius: 5px;
-  color: #363f5f;
-
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 `;
 
@@ -63,18 +68,15 @@ export const Transaction = styled.li<ITransaction>`
   display: flex;
   justify-content: space-between;
 
-
-    ${props =>
-      props.type === 'outcome' &&
-      css`
-        color: #e83f5b;
-      `};
-  }
-
-    ${props =>
-      props.type === 'income' &&
-      css`
-        color: #12a454;
-      `};
-  }
+  ${props =>
+    props.type === 'outcome' &&
+    css`
+      color: props.theme.colors.red;
+    `};
 `;
+
+// ${props =>
+//   props.type === 'income' &&
+//   css`
+//     color: #12a454;
+//   `};

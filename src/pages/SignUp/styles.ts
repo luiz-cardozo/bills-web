@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { lighten } from 'polished';
 
 export const Container = styled.div`
   height: 100vh;
@@ -20,10 +19,10 @@ export const Lock = styled.div`
   user-select: none;
   border-radius: 50%;
   justify-content: center;
-  background-color: #4211d0;
+  background-color: ${props => props.theme.colors.purple.primary};
 
   svg {
-    color: #ebe7f8;
+    color: ${props => props.theme.colors.light.primary};
   }
 `;
 
@@ -33,37 +32,35 @@ export const Content = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 720px;
-
-  @media (max-width: 800px) {
-    max-width: 100%;
-  }
+  max-width: 800px;
+  background: ${props => props.theme.colors.white};
 
   h1 {
     margin-bottom: 24px;
-    color: #4211d0;
+    color: ${props => props.theme.colors.purple.primary};
   }
 
   form {
     margin: 8px 0;
-    width: 340px;
+    width: 80%;
+    max-width: 340px;
     text-align: center;
 
     a {
-      color: #3f3d56;
+      color: ${props => props.theme.colors.gray.primary};
       display: block;
       margin-top: 24px;
       text-decoration: none;
       transition: color 0.2s;
 
       &:hover {
-        color: ${lighten(0.2, '#3f3d56')};
+        color: ${props => props.theme.colors.gray.secondary};
       }
     }
   }
 
   > a {
-    color: #4211d0;
+    color: ${props => props.theme.colors.purple.primary};
     display: block;
     margin-top: 24px;
     text-decoration: none;
@@ -73,12 +70,16 @@ export const Content = styled.div`
     align-items: center;
 
     &:hover {
-      color: ${lighten(0.1, '#4211d0')};
+      ${props => props.theme.colors.purple.secondary};
     }
 
     svg {
       margin-right: 16px;
     }
+  }
+
+  @media (min-width: 900px) {
+    max-width: 50%;
   }
 `;
 
@@ -86,14 +87,15 @@ export const Background = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #4211d0;
+  background-color: ${props => props.theme.colors.purple.primary};
   flex: 1;
+  display: none;
 
   svg {
     width: 400px;
   }
 
-  @media (max-width: 800px) {
-    display: none;
+  @media (min-width: 900px) {
+    display: flex;
   }
 `;

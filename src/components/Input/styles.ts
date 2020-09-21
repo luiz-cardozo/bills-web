@@ -9,7 +9,7 @@ interface IContainerProps {
 export const Container = styled.div<IContainerProps>`
   border-radius: 10px;
   border: 1px solid #3f3d56;
-  padding: 16px;
+  padding: 12px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -35,7 +35,7 @@ export const Container = styled.div<IContainerProps>`
   ${props =>
     props.isFilled &&
     css`
-      border-color: #3f3d56;
+      border-color: #1ed69e;
       color: #1ed69e;
     `}
 
@@ -47,6 +47,10 @@ export const Container = styled.div<IContainerProps>`
 
   svg {
     margin-right: 16px;
+  }
+
+  @media (min-width: 800px){
+    padding: 16px;
   }
 `;
 

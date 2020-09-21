@@ -3,21 +3,21 @@ import { animated } from 'react-spring';
 
 interface IContainerProps {
   type?: 'success' | 'error' | 'info';
-  hasDescription: number;
+  $hasDescription: number;
 }
 
 const toastTypeVariations = {
   info: css`
-    background: #ebf8ff;
-    color: #3172b7;
+    background: ${props => props.theme.colors.blue.secondary};
+    color: ${props => props.theme.colors.blue.primary};
   `,
   success: css`
-    background: #e6fffa;
-    color: #2e656a;
+    background: ${props => props.theme.colors.green.soft};
+    color: ${props => props.theme.colors.green.secondary};
   `,
   error: css`
-    background: #ffdede;
-    color: #c53030;
+    background: ${props => props.theme.colors.red.secondary};
+    color: ${props => props.theme.colors.red.primary};
   `,
 };
 
@@ -62,7 +62,7 @@ export const Container = styled(animated.div)<IContainerProps>`
   }
 
   ${props =>
-    !props.hasDescription &&
+    !props.$hasDescription &&
     css`
       align-items: center;
 
